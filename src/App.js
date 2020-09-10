@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+
 import axios from "axios";
+import Game from "./scenes/Game";
 
 const authUrl = "https://accounts.spotify.com/authorize/?";
 const clientId = process.env.REACT_APP_CLIENT_ID;
@@ -12,8 +14,6 @@ class App extends Component {
     this.state = {
       tracks: [],
       playlists: {},
-      likes: {},
-      eliminated: [],
       token: null
     };
   }
@@ -61,7 +61,7 @@ class App extends Component {
         </div>
       );
     }
-      
+
     const playlists = Object.entries(this.state.playlists).map((key, i) => {
       return (
         <ul>
@@ -69,6 +69,10 @@ class App extends Component {
         </ul>
       );
     });
+
+    if (this.state.tracks.length > 0) {
+      return <Game tracks={this.state.tracks}/>
+    }
 
     return playlists;
   }
