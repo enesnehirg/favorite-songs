@@ -4,12 +4,6 @@ Just a little game for specify which songs are your favorite in a playlist. Espe
 
 ## Local development
 
-1. Create an app from Spotify Developer.
+1. `$ npm install`
 
-2. Create a file called .env in your project's root directory and add a line like that:
-
-    `REACT_APP_CLIENT_ID=<YOUR_CLIENT_ID>`
-
-3. `$ npm install`
-
-4. `$ npm start`
+2. `$ npm start`

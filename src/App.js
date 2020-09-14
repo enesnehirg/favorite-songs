@@ -4,7 +4,7 @@ import axios from "axios";
 import Game from "./scenes/Game";
 
 const authUrl = "https://accounts.spotify.com/authorize/?";
-const clientId = process.env.REACT_APP_CLIENT_ID;
+const clientId = "86bc5d2472e548729473b068f5000414";
 const redirectUri = "http://localhost:3000/";
 const scopes = "playlist-read-private";
 
