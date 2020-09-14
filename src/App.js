@@ -5,9 +5,12 @@ import Game from "./scenes/Game";
 
 const authUrl = "https://accounts.spotify.com/authorize/?";
 const clientId = "86bc5d2472e548729473b068f5000414";
-const redirectUri = "http://spotify-favorite-songs.s3-website.eu-central-1.amazonaws.com";
+const redirectUri = 
+  process.env.NODE_ENV === "development"
+      ? "http://localhost:3000/"
+      : "http://spotify-favorite-songs.s3-website.eu-central-1.amazonaws.com/";
 const scopes = "playlist-read-private";
-
+console.log(redirectUri);
 class App extends Component {
   constructor(props) {
     super(props);
