@@ -1,7 +1,10 @@
 import React, { Component } from "react";
-
+import { Button } from 'reactstrap';
 import axios from "axios";
+
 import Game from "./scenes/Game";
+import "./App.css"
+
 
 const authUrl = "https://accounts.spotify.com/authorize/?";
 const clientId = "86bc5d2472e548729473b068f5000414";
@@ -10,7 +13,6 @@ const redirectUri =
       ? "http://localhost:3000/"
       : "http://spotify-favorite-songs.s3-website.eu-central-1.amazonaws.com/";
 const scopes = "playlist-read-private";
-console.log(redirectUri);
 class App extends Component {
   constructor(props) {
     super(props);
@@ -58,17 +60,18 @@ class App extends Component {
     if (!this.state.token) {
       return (
         <div className="App">
-          <a href={`${authUrl}client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes}&response_type=token&show_dialog=true`}>
-            Login with Spotify
-          </a>
+          <header className="App-header">
+            <Button className="spotify-login" onClick={event =>  window.location.href=`${authUrl}client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes}&response_type=token&show_dialog=true`}>
+                Login with Spotify
+            </Button>
+          </header>
         </div>
       );
     }
-
     const playlists = Object.entries(this.state.playlists).map((key, i) => {
       return (
         <ul>
-          <li><button onClick={() => this.getTracks(this.state.token, key[0])}>{key[1]}</button></li>
+          <li><Button onClick={() => this.getTracks(this.state.token, key[0])}>{key[1]}</Button></li>
         </ul>
       );
     });
@@ -77,7 +80,12 @@ class App extends Component {
       return <Game tracks={this.state.tracks}/>
     }
 
-    return playlists;
+    return (
+      <div className="App-header">
+        {playlists}
+      </div>
+      
+    );
   }
 }
 

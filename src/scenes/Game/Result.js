@@ -13,7 +13,11 @@ class Result extends React.Component {
               </ul>
             );
         });
-        return result;
+        return (
+          <div className="App-header">
+            {result}
+          </div>
+        )
     }
 }
 

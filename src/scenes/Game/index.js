@@ -1,4 +1,6 @@
 import React from "react";
+import { Button } from 'reactstrap';
+
 import Result from "./Result"
 
 class Game extends React.Component {
@@ -72,9 +74,10 @@ class Game extends React.Component {
         const secondTrack = tracks[this.state.secondIndex];
         if (tracks.length >= 2) {
             return (
-                <div>
-                    <button onClick={() => this.like(firstTrack, 1, secondTrack)}>{firstTrack}</button>
-                    <button onClick={() => this.like(secondTrack, 2, firstTrack)}>{secondTrack}</button>
+                <div className="App-header">
+                    <Button onClick={() => this.like(firstTrack, 1, secondTrack)}>{firstTrack}</Button>
+                    <p>VS</p>
+                    <Button onClick={() => this.like(secondTrack, 2, firstTrack)}>{secondTrack}</Button>
                 </div>
             );
         }
