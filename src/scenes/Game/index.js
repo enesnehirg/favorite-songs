@@ -14,7 +14,8 @@ class Game extends React.Component {
             liked: {},
             tracks: tracks,
             firstIndex: firstRandomIndex,
-            secondIndex: secondRandomIndex
+            secondIndex: secondRandomIndex,
+            maxChose: Math.round(tracks.length * 10 / 100)
         };
     }
 
@@ -24,6 +25,10 @@ class Game extends React.Component {
         if (!liked[track]) {
             liked[track] = 1;
         } else {
+            if (liked[track] === this.state.maxChose) {
+                const trackIndex = tracks.indexOf(track)
+                tracks.splice(trackIndex, 1)
+            }
             liked[track] += 1;
         }
         eliminated.push(eliminatedTrack);
@@ -34,32 +39,45 @@ class Game extends React.Component {
         tracks.splice(trackIndex, 1)
         // generate new random index
         var newTrackIndex;
+        var firstRandomIndex;
+        var secondRandomIndex;
         do {
             if (index === 1) {
-                newTrackIndex = tracks.indexOf(track);
-                var secondRandomIndex = Math.floor(Math.random() * tracks.length);
-                this.setState({secondIndex: secondRandomIndex, firstIndex: newTrackIndex});
+                if (tracks.includes(track)) {
+                    newTrackIndex = tracks.indexOf(track);
+                    secondRandomIndex = Math.floor(Math.random() * tracks.length);
+                    this.setState({secondIndex: secondRandomIndex, firstIndex: newTrackIndex});
+                } else {
+                    firstRandomIndex = Math.floor(Math.random() * tracks.length);
+                    secondRandomIndex = Math.floor(Math.random() * tracks.length);
+                    this.setState({secondIndex: secondRandomIndex, firstIndex: firstRandomIndex});
+                }
             } else if (index === 2) {
-                newTrackIndex = tracks.indexOf(track);
-                var firstRandomIndex = Math.floor(Math.random() * tracks.length);
-                this.setState({firstIndex: firstRandomIndex, secondIndex: newTrackIndex});
+                if (tracks.includes(track)) {
+                    newTrackIndex = tracks.indexOf(track);
+                    firstRandomIndex = Math.floor(Math.random() * tracks.length);
+                    this.setState({firstIndex: firstRandomIndex, secondIndex: newTrackIndex});
+                } else {
+                    firstRandomIndex = Math.floor(Math.random() * tracks.length);
+                    secondRandomIndex = Math.floor(Math.random() * tracks.length);
+                    this.setState({secondIndex: secondRandomIndex, firstIndex: firstRandomIndex});
+                }
             }
-        } while(firstRandomIndex === secondRandomIndex || firstRandomIndex === newTrackIndex || secondRandomIndex === newTrackIndex);
+        } while(tracks.length !== 1 && (firstRandomIndex === secondRandomIndex || firstRandomIndex === newTrackIndex || secondRandomIndex === newTrackIndex));
     }
 
     render() {
-        const tracks = this.props.tracks;
+        const tracks = this.state.tracks;
         const firstTrack = tracks[this.state.firstIndex];
         const secondTrack = tracks[this.state.secondIndex];
-        if (tracks.length > 2) {
+        if (tracks.length >= 2) {
             return (
                 <div>
                     <button onClick={() => this.like(firstTrack, 1, secondTrack)}>{firstTrack}</button>
                     <button onClick={() => this.like(secondTrack, 2, firstTrack)}>{secondTrack}</button>
                 </div>
-            )
+            );
         }
-        console.log(this.state.liked);
         return (
             <div>
                 <Result liked={this.state.liked}/>
