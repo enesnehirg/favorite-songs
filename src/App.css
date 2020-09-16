@@ -6,6 +6,48 @@ p {
     padding: 2%;
 }
 
+img {
+    padding: 2%;
+}
+
+.bottom-centered {
+    position: absolute;
+    top: 80%;
+    left: 15%;
+}
+
+.top-centered {
+    position: absolute;
+    top: 7%;
+    left: 15%;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 50%;
+}
+
+.alt-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 500px;
+}
+
+.track-button {
+    font-style: normal;
+    font-size: 24px;
+    font-weight: 900;
+    font-family: extra-bold 800;
+    border-color: rgba(50, 50, 50, 0);
+    background: rgba(7, 125, 0, 1);
+    color: rgba(239, 239, 239, 1);
+}
+
 .App {
     text-align: center;
     background-color: #282c34;
@@ -20,6 +62,39 @@ p {
     font-size: calc(10px + 2vmin);
     color: white;
     background-color: #282c34;
+    width: 100%;
+}
+
+.result-list {
+    background-color: #282c34;
+    font-size: calc(1px + 2vmin);
+    min-height: 100vh;
+}
+
+.result {
+    color: white;
+    width: 100%;
+}
+
+.image {
+    float: left;
+    margin: 0px;
+}
+
+.song {
+    padding: 5px;
+    margin-left: 7%;
+}
+
+.artist {
+    padding: 0px;
+    margin: 0px;
+}
+
+.track {
+    padding: 0px;
+    margin: 0px;
+    font-size: 15px;
 }
 
 .spotify-login {

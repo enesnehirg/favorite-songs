@@ -1,7 +1,6 @@
 import React from "react";
-import { Button } from 'reactstrap';
 
-import Result from "./Result"
+import Result from "./Result";
 
 class Game extends React.Component {
     constructor(props) {
@@ -17,28 +16,31 @@ class Game extends React.Component {
             tracks: tracks,
             firstIndex: firstRandomIndex,
             secondIndex: secondRandomIndex,
-            maxChose: Math.round(tracks.length * 10 / 100)
+            maxChose: Math.round(tracks.length * 10 / 100),
+            result: []
         };
     }
 
     like(track, index, eliminatedTrack) {
-        var { liked, eliminated, tracks } = this.state;
+        var { liked, eliminated, tracks, result } = this.state;
         // fill liked object and eliminated array
-        if (!liked[track]) {
-            liked[track] = 1;
+        if (!liked[track.name]) {
+            liked[track.name] = 1;
+            result.push(track);
         } else {
-            if (liked[track] === this.state.maxChose) {
-                const trackIndex = tracks.indexOf(track)
-                tracks.splice(trackIndex, 1)
+            if (liked[track.name] === this.state.maxChose) {
+                const trackIndex = tracks.indexOf(track);
+                tracks.splice(trackIndex, 1);
             }
-            liked[track] += 1;
+            liked[track.name] += 1;
         }
         eliminated.push(eliminatedTrack);
         this.setState({liked: liked});
         this.setState({eliminated: eliminated});
+        this.setState({result: result});
         // remove eliminated track
-        const trackIndex = tracks.indexOf(eliminatedTrack)
-        tracks.splice(trackIndex, 1)
+        const trackIndex = tracks.indexOf(eliminatedTrack);
+        tracks.splice(trackIndex, 1);
         // generate new random index
         var newTrackIndex;
         var firstRandomIndex;
@@ -75,15 +77,31 @@ class Game extends React.Component {
         if (tracks.length >= 2) {
             return (
                 <div className="App-header">
-                    <Button onClick={() => this.like(firstTrack, 1, secondTrack)}>{firstTrack}</Button>
-                    <p>VS</p>
-                    <Button onClick={() => this.like(secondTrack, 2, firstTrack)}>{secondTrack}</Button>
+                    <div className="container">
+                        <div className="alt-container">
+                            <img src={firstTrack.album.images[1].url} alt="first" />
+                            <div className="bottom-centered">
+                                <button className="track-button" onClick={() => this.like(firstTrack, 1, secondTrack)}>
+                                    {firstTrack.name}
+                                </button>
+                            </div>
+                        </div>
+                        <p>VS</p>
+                        <div className="alt-container">
+                            <img src={secondTrack.album.images[1].url} alt="second" />
+                            <div className="top-centered">
+                                <button className="track-button" onClick={() => this.like(secondTrack, 2, firstTrack)}>
+                                    {secondTrack.name}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             );
         }
         return (
             <div>
-                <Result liked={this.state.liked}/>
+                <Result result={this.state.result}/>
             </div>
         )
     }

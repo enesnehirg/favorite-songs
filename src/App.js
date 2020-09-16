@@ -40,13 +40,13 @@ class App extends Component {
 
   getTracks = async (token, playlistId) => {
     const url = "https://api.spotify.com/v1/playlists/" + playlistId + "/tracks"
-    const { tracks } = this.state;
+    var tempTracks = this.state.tracks;
     await axios.get(url, { headers: {"Authorization": "Bearer " + token} }).then(function (response) {
       response.data.items.forEach(track => {
-        tracks.push(track.track.name);
+        tempTracks.push(track.track);
       });
     });
-    this.setState({tracks: tracks});
+    this.setState({tracks: tempTracks});
   }
 
   componentDidMount() {
@@ -84,7 +84,6 @@ class App extends Component {
       <div className="App-header">
         {playlists}
       </div>
-      
     );
   }
 }
