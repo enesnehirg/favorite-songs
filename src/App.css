@@ -2,6 +2,18 @@ ul {
     list-style-type: none;
 }
 
+h1 {
+    margin-left: 10px;
+    padding: 5%;
+    color: white;
+}
+
+#root {
+    min-height: 100vh;
+    width: 100%;
+    height: 100%;
+}
+
 p {
     padding: 2%;
 }
@@ -67,6 +79,8 @@ img {
 
 .result-list {
     background-color: #282c34;
+    display: block;
+    height: 100%;
     min-height: 100vh;
 }
 
@@ -82,7 +96,7 @@ img {
 
 .song {
     padding: 5px;
-    margin-left: 7%;
+    margin-left: 80px;
 }
 
 .artist {
@@ -108,4 +122,13 @@ img {
 }
 .spotify-login:active {
     background: rgba(30, 215, 96, 1);
+}
+
+.create-playlist {
+    width: 220px;
+    background: rgba(30, 215, 96, 1) !important;
+    border-color: rgba(30, 215, 96, 1);
+    margin-left: 40px;
+    margin-top: 20px;
+    margin-bottom: 40px;
 }

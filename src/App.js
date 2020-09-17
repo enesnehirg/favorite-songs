@@ -12,14 +12,15 @@ const redirectUri =
   process.env.NODE_ENV === "development"
       ? "http://localhost:3000/"
       : "http://spotify-favorite-songs.s3-website.eu-central-1.amazonaws.com/";
-const scopes = "playlist-read-private";
+const scopes = ["playlist-read-private", "playlist-modify-private"];
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       tracks: [],
       playlists: {},
-      token: null
+      token: null,
+      playlistName: null
     };
   }
 
@@ -38,7 +39,7 @@ class App extends Component {
     this.setState({playlists: tempPlaylists});
   }
 
-  getTracks = async (token, playlistId) => {
+  getTracks = async (token, playlistId, playlistName) => {
     const url = "https://api.spotify.com/v1/playlists/" + playlistId + "/tracks"
     var tempTracks = this.state.tracks;
     await axios.get(url, { headers: {"Authorization": "Bearer " + token} }).then(function (response) {
@@ -46,6 +47,7 @@ class App extends Component {
         tempTracks.push(track.track);
       });
     });
+    this.setState({playlistName: playlistName});
     this.setState({tracks: tempTracks});
   }
 
@@ -71,13 +73,13 @@ class App extends Component {
     const playlists = Object.entries(this.state.playlists).map((key, i) => {
       return (
         <ul>
-          <li><Button onClick={() => this.getTracks(this.state.token, key[0])}>{key[1]}</Button></li>
+          <li><Button onClick={() => this.getTracks(this.state.token, key[0], key[1])}>{key[1]}</Button></li>
         </ul>
       );
     });
 
     if (this.state.tracks.length > 0) {
-      return <Game tracks={this.state.tracks}/>
+      return <Game tracks={this.state.tracks} playlist={this.state.playlistName} />
     }
 
     return (

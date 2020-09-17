@@ -100,9 +100,7 @@ class Game extends React.Component {
             );
         }
         return (
-            <div>
-                <Result result={this.state.result}/>
-            </div>
+            <Result result={this.state.result} playlist={this.props.playlist} />
         )
     }
 }
