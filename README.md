@@ -7,3 +7,5 @@ Just a little game for specify which songs are your favorite in a playlist. Espe
 1. `$ npm install`
 
 2. `$ npm start`
+
+Try it here: http://spotify-favorite-songs.s3-website.eu-central-1.amazonaws.com/
