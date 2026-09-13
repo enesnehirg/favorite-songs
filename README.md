@@ -1,11 +1,19 @@
-# favorite-songs
+# Keepers
 
-Just a little game for specify which songs are your favorite in a playlist. Especially for people who are suffering with eliminate songs, and creating huge playlists.
+Keepers is a Spotify face-off for bloated playlists. Two tracks appear. You keep one. Repeat until the songs you would actually play are left, then save them as a new private playlist.
 
 ## Local development
 
-1. `$ npm install`
+Spotify must allow `http://localhost:3000/` as a redirect URI for the app.
 
-2. `$ npm start`
+```bash
+npm install
+npm start
+```
 
-Try it here: http://spotify-favorite-songs.s3-website.eu-central-1.amazonaws.com/
+Then open [http://localhost:3000](http://localhost:3000).
+
+```bash
+npm test
+npm run build
+```
